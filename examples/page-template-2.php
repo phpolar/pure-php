@@ -1,18 +1,3 @@
-<p align="center">
-  <a href="https://github.com/phpolar"><img src="phpolar.svg" width="240" alt="Phpolar Logo" /></a>
-</p>
-
-# PHP Templating
-
-Support using [pure PHP templates](#pure-php-templates) with automatic XSS mitigation.
-
-[![Coverage Status](https://coveralls.io/repos/github/phpolar/php-templating/badge.svg?branch=main)](https://coveralls.io/github/phpolar/php-templating?branch=main)
-
-### Pure PHP Templates
-
-#### Example 1
-
-```php
 <!DOCTYPE html>
 <?php
 /**
@@ -46,4 +31,3 @@ $view = $this;
         </div>
     </body>
 </html>
-```
