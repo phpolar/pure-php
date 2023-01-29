@@ -10,7 +10,6 @@
     ],
     "type": "library",
     "require-dev": {
-        "php": ">=8.1",
         "ext-mbstring": "*",
         "phan/phan": "^5.4",
         "php-coveralls/php-coveralls": "^2.5",
@@ -64,5 +63,8 @@
         "xdebug:off": [
             "TEMP_FILE=\"$(sed --follow-symlink 's/zend_extension=xdebug/;zend_extension=xdebug/' \"$(php-config --ini-dir)/20-xdebug.ini\")\"; echo \"$TEMP_FILE\" > \"$(php-config --ini-dir)/20-xdebug.ini\""
         ]
+    },
+    "require": {
+        "php": "^8.1"
     }
 }
