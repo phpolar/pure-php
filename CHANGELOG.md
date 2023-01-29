@@ -1,3 +1,9 @@
+## 0.1.2 (2023-01-29)
+
+### Fix
+
+- **.gitattributes**: remove report from dist
+
 ## 0.1.1 (2023-01-29)
 
 ### Fix
