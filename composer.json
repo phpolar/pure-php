@@ -1,0 +1,68 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "phpolar/php-templating",
+    "description": "Pure PHP Templates",
+    "keywords": [
+        "templates",
+        "template-engine",
+        "template-language",
+        "php"
+    ],
+    "type": "library",
+    "require-dev": {
+        "php": ">=8.1",
+        "ext-mbstring": "*",
+        "phan/phan": "^5.4",
+        "php-coveralls/php-coveralls": "^2.5",
+        "phpstan/phpstan": "^1.9",
+        "phpunit/phpunit": "^9.5",
+        "squizlabs/php_codesniffer": "^3.7"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Phpolar\\PhpTemplating\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Eric Fortmeyer",
+            "email": "e.fortmeyer01@gmail.com"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "analyze": "phpstan analyze src --level 9",
+        "analyze:strict": "phan --no-progress-bar --strict-type-checking --analyze-twice --color --output-mode=text --color-scheme=light",
+        "analyze:dead-code": "@analyze:strict --color-scheme=light --config-file=.phan/config_deadcode.php",
+        "check": [
+            "@lint -q",
+            "@analyze -q",
+            "@test --configuration=phpunit.dev.xml --testsuite unit"
+        ],
+        "ci:analyze": "composer exec \"@analyze\"",
+        "ci:lint": "composer exec \"@lint\"",
+        "ci:lint-fix": "composer exec \"@lint-fix\"",
+        "ci:test": "XDEBUG_MODE=coverage composer exec \"@test --configuration=phpunit.ci.xml --coverage-clover=build/logs/clover.xml\"",
+        "ci:generate-coverage-badge": "composer exec \"php-coveralls -v\"",
+        "lint": "phpcs",
+        "lint-fix": "phpcbf",
+        "start:test": [
+            "Composer\\Config::disableProcessTimeout",
+            "watch -n 30 -cx vendor/bin/phpunit --color=always --testsuite unit"
+        ],
+        "test": "phpunit --color=always",
+        "test:acceptance": "@test --configuration=phpunit.dev.xml --testsuite acceptance",
+        "test:acceptance:report": "@test --configuration=phpunit.dev.xml --testsuite acceptance --testdox-text acceptance-test-results.md",
+        "test:unit": "@test --configuration=phpunit.dev.xml --testsuite unit",
+        "test:coverage": "XDEBUG_MODE=coverage composer exec \"@test --configuration=phpunit.ci.xml --coverage-text --testsuite unit\"",
+        "xdebug:on": [
+            "TEMP_FILE=\"$(sed --follow-symlink 's/;zend_extension=xdebug/zend_extension=xdebug/' \"$(php-config --ini-dir)/20-xdebug.ini\")\"; echo \"$TEMP_FILE\" > \"$(php-config --ini-dir)/20-xdebug.ini\""
+        ],
+        "xdebug:off": [
+            "TEMP_FILE=\"$(sed --follow-symlink 's/zend_extension=xdebug/;zend_extension=xdebug/' \"$(php-config --ini-dir)/20-xdebug.ini\")\"; echo \"$TEMP_FILE\" > \"$(php-config --ini-dir)/20-xdebug.ini\""
+        ]
+    }
+}
