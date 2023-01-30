@@ -9,7 +9,7 @@ use Closure;
 /**
  * Triggers the output stream
  */
-final class FileRenderer implements RenderingAlgorithmInterface
+final class FileRenderingStrategy implements TemplatingStrategyInterface
 {
     /**
      * Return the implementation
@@ -19,7 +19,10 @@ final class FileRenderer implements RenderingAlgorithmInterface
         /**
          * @suppress PhanUnreferencedClosure
          */
-        return function (string $pathToTemplate) {
+        return function (string $pathToTemplate): bool|FileNotFound {
+            if (file_exists($pathToTemplate) === false) {
+                return new FileNotFound();
+            }
             ob_start();
             include $pathToTemplate;
             return ob_end_flush();

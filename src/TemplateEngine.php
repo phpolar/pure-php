@@ -10,21 +10,37 @@ namespace Phpolar\PhpTemplating;
 final class TemplateEngine
 {
     public function __construct(
-        private RenderingAlgorithmInterface $renderingAlgoFactory,
+        private TemplatingStrategyInterface $renderingAlgoFactory,
         private Binder $binder,
         private Dispatcher $dispatcher,
     ) {
     }
 
     /**
-     * Displays the content
+     * Returns the content string
      */
-    public function render(string $pathToTemplate, HtmlSafeContext $context): void
+    public function apply(string $pathToTemplate, HtmlSafeContext $context): string|FileNotFound|BindFailed
     {
         $renderingAlgo = $this->renderingAlgoFactory->getAlgorithm();
         $bound = $this->binder->bind($renderingAlgo, $context);
-        if ($bound !== null) {
-            $this->dispatcher->execute($bound, $pathToTemplate);
+        if ($bound === null) {
+            return new BindFailed();
         }
+        $result = $this->dispatcher->execute($bound, $pathToTemplate);
+        return is_bool($result) === true ? "" : $result;
+    }
+
+    /**
+     * Displays the content
+     */
+    public function render(string $pathToTemplate, HtmlSafeContext $context): bool|FileNotFound|BindFailed
+    {
+        $renderingAlgo = $this->renderingAlgoFactory->getAlgorithm();
+        $bound = $this->binder->bind($renderingAlgo, $context);
+        if ($bound === null) {
+            return new BindFailed();
+        }
+        $result = $this->dispatcher->execute($bound, $pathToTemplate);
+        return is_string($result) === true ? false : $result;
     }
 }

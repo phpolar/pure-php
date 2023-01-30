@@ -25,10 +25,10 @@ final class MemoryUsageTest extends TestCase
      * @dataProvider thresholds()
      * @testdox Memory usage shall be below $threshold bytes
      */
-    public function shallBeBelowThreshold(int $threshold)
+    public function shallBeBelowThreshold1(int $threshold)
     {
         $engine = new TemplateEngine(
-            new FileRenderer(),
+            new FileRenderingStrategy(),
             new Binder(),
             new Dispatcher(),
         );
@@ -48,6 +48,38 @@ final class MemoryUsageTest extends TestCase
         $totalUsed = -memory_get_usage();
         $engine->render("tests/__templates__/hack.php", new HtmlSafeContext($objWithHacks));
         $totalUsed += memory_get_usage();
+        $this->assertGreaterThan(0, $totalUsed);
+        $this->assertLessThanOrEqual($threshold, $totalUsed);
+    }
+
+    /**
+     * @test
+     * @dataProvider thresholds()
+     * @testdox Memory usage shall be below $threshold bytes
+     */
+    public function shallBeBelowThreshold2(int $threshold)
+    {
+        $engine = new TemplateEngine(
+            new StreamContentStrategy(),
+            new Binder(),
+            new Dispatcher(),
+        );
+        $objWithHacks = new class() {
+            public string $hack1 = "<script>alert('hacked');</script>";
+            public string $directiveHack1 = "javascript:alert('hacked');";
+            public string $directiveHack2 = "# javascript:alert('hacked');";
+            public string $directiveHack3 = "/ javascript:alert('hacked');";
+        };
+        $mitigated = <<<HTML
+        &lt;script&gt;alert&lpar;&apos;hacked&apos;&rpar;&semi;&lt;&sol;script&gt;
+        <a alert&lpar;&apos;hacked&apos;&rpar;&semi;>HACK</a>
+        <a href=&num; alert&lpar;&apos;hacked&apos;&rpar;&semi;>HACK</a>
+        <img src=&sol; alert&lpar;&apos;hacked&apos;&rpar;&semi; />
+        HTML;
+        $totalUsed = -memory_get_usage();
+        $result = $engine->apply("tests/__templates__/hack.php", new HtmlSafeContext($objWithHacks));
+        $totalUsed += memory_get_usage();
+        $this->assertSame($mitigated, $result);
         $this->assertGreaterThan(0, $totalUsed);
         $this->assertLessThanOrEqual($threshold, $totalUsed);
     }

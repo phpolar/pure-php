@@ -15,7 +15,7 @@ final class SecurityTest extends TestCase
     public function getTemplatingEngine(): TemplateEngine
     {
         return new TemplateEngine(
-            new FileRenderer(),
+            new FileRenderingStrategy(),
             new Binder(),
             new Dispatcher(),
         );
