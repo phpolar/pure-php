@@ -9,7 +9,7 @@ use Closure;
 /**
  * Allows for swapping rendering implementations
  */
-interface RenderingAlgorithmInterface
+interface TemplatingStrategyInterface
 {
     /**
      * Returns the rendering implementation
