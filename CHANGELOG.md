@@ -1,3 +1,9 @@
+## 0.2.0 (2023-01-30)
+
+### Feat
+
+- add support for returning content strings
+
 ## 0.1.2 (2023-01-29)
 
 ### Fix
