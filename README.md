@@ -26,6 +26,8 @@ composer require phpolar/php-templating
 $page = new Page();
 $safeContext = new HtmlSafeContext($page);
 $templateEng->render("path/to/template.php", $safeContext);
+// or...
+echo $templateEng->apply("path/to/template.php", $safeContext);
 ```
 
 ## Example 1

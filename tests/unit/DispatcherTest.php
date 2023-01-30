@@ -17,8 +17,9 @@ final class DispatcherTest extends TestCase
     public function test1()
     {
         $givenPath = "SOME PATH";
-        $algo = function (string $path) use ($givenPath) {
+        $algo = function (string $path) use ($givenPath): string|FileNotFound {
             $this->assertSame($path, $givenPath);
+            return "";
         };
         $sut = new Dispatcher();
         $sut->execute($algo, $givenPath);
