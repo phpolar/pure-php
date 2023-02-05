@@ -19,15 +19,14 @@ final class TemplateEngine
     /**
      * Returns the content string
      */
-    public function apply(string $pathToTemplate, HtmlSafeContext $context): string|FileNotFound|BindFailed
+    public function apply(string $pathToTemplate, ?HtmlSafeContext $context = null): string|FileNotFound|BindFailed
     {
         $renderingAlgo = $this->renderingAlgoFactory->getAlgorithm();
-        $bound = $this->binder->bind($renderingAlgo, $context);
-        if ($bound === null) {
+        $algo = $context === null ? $renderingAlgo : $this->binder->bind($renderingAlgo, $context);
+        if ($algo === false) {
             return new BindFailed();
         }
-        $result = $this->dispatcher->execute($bound, $pathToTemplate);
-        return is_bool($result) === true ? "" : $result;
+        return $this->dispatcher->getContents($algo, $pathToTemplate);
     }
 
     /**
@@ -37,10 +36,9 @@ final class TemplateEngine
     {
         $renderingAlgo = $this->renderingAlgoFactory->getAlgorithm();
         $bound = $this->binder->bind($renderingAlgo, $context);
-        if ($bound === null) {
+        if ($bound === false) {
             return new BindFailed();
         }
-        $result = $this->dispatcher->execute($bound, $pathToTemplate);
-        return is_string($result) === true ? false : $result;
+        return $this->dispatcher->dispatch($bound, $pathToTemplate);
     }
 }

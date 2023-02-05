@@ -14,8 +14,8 @@ class Binder
     /**
      * Streams content of template
      */
-    public function bind(Closure $algo, HtmlSafeContext $context): ?Closure
+    public function bind(Closure $algo, HtmlSafeContext $context): Closure|false
     {
-        return Closure::bind($algo, $context);
+        return Closure::bind($algo, $context) ?? false;
     }
 }

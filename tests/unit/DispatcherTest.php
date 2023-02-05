@@ -22,6 +22,20 @@ final class DispatcherTest extends TestCase
             return "";
         };
         $sut = new Dispatcher();
-        $sut->execute($algo, $givenPath);
+        $sut->getContents($algo, $givenPath);
+    }
+
+    /**
+     * @testdox Shall call the given algorithm with the given path string
+     */
+    public function test2()
+    {
+        $givenPath = "SOME PATH";
+        $algo = function (string $path) use ($givenPath): bool|FileNotFound {
+            $this->assertSame($path, $givenPath);
+            return false;
+        };
+        $sut = new Dispatcher();
+        $sut->dispatch($algo, $givenPath);
     }
 }
