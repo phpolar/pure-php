@@ -1,3 +1,9 @@
+## 0.3.0 (2023-02-05)
+
+### Feat
+
+- make context argument optional
+
 ## 0.2.0 (2023-01-30)
 
 ### Feat
