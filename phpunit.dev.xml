@@ -35,7 +35,7 @@
     </coverage>
     <php>
         <const name="SRC_GLOB" value="/src{/,/**/}*.php" />
-        <const name="Phpolar\PhpTemplating\Tests\PROJECT_SIZE_THRESHOLD" value="5500" />
-        <const name="Phpolar\PhpTemplating\Tests\PROJECT_MEMORY_USAGE_THRESHOLD" value="15500" />
+        <const name="Phpolar\PhpTemplating\Tests\PROJECT_SIZE_THRESHOLD" value="5600" />
+        <const name="Phpolar\PhpTemplating\Tests\PROJECT_MEMORY_USAGE_THRESHOLD" value="16000" />
     </php>
 </phpunit>

@@ -33,7 +33,7 @@
         "sort-packages": true
     },
     "scripts": {
-        "analyze": "phpstan analyze src --level 9",
+        "analyze": "XDEBUG_MODE=off phpstan analyze src --level 9",
         "analyze:strict": "phan --no-progress-bar --strict-type-checking --analyze-twice --color --output-mode=text --color-scheme=light",
         "analyze:dead-code": "@analyze:strict --color-scheme=light --config-file=.phan/config_deadcode.php",
         "check": [

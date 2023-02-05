@@ -14,7 +14,15 @@ class Dispatcher
     /**
      * Execute the algorithm
      */
-    public function execute(Closure $algo, string ...$arg): string|bool|FileNotFound
+    public function dispatch(Closure $algo, string ...$arg): bool|FileNotFound
+    {
+        return $algo(...$arg);
+    }
+
+    /**
+     * Execute the algorithm to return the contents
+     */
+    public function getContents(Closure $algo, string ...$arg): string|FileNotFound
     {
         return $algo(...$arg);
     }

@@ -17,6 +17,7 @@ use PHPUnit\Framework\TestCase;
 final class TemplateEngineTest extends TestCase
 {
     const EXISTING_FILE = "tests/__templates__/a.php";
+    const FAKE_CONTENTS = "some string";
 
     /**
      * @testdox Shall display content from given template with object variables bound
@@ -44,7 +45,7 @@ final class TemplateEngineTest extends TestCase
          */
         $executorSpy = $this->createMock(Dispatcher::class);
         $binderSpy->expects($this->once())->method("bind")->willReturn($algo);
-        $executorSpy->expects($this->once())->method("execute")->willReturn($algo());
+        $executorSpy->expects($this->once())->method("dispatch")->willReturn($algo());
         $template = new TemplateEngine(
             $renderingAlgoFactory,
             $binderSpy,
@@ -78,8 +79,9 @@ final class TemplateEngineTest extends TestCase
          * @var MockObject&Dispatcher
          */
         $executorSpy = $this->createMock(Dispatcher::class);
-        $binderSpy->expects($this->once())->method("bind")->willReturn(null);
-        $executorSpy->expects($this->never())->method("execute");
+        $binderSpy->expects($this->once())->method("bind")->willReturn(false);
+        $executorSpy->expects($this->never())->method("getContents");
+        $executorSpy->expects($this->never())->method("dispatch");
         $template = new TemplateEngine(
             $renderingAlgoFactory,
             $binderSpy,
@@ -91,10 +93,10 @@ final class TemplateEngineTest extends TestCase
     /**
      * @testdox Shall return content string from given template with object variables bound
      */
-    public function test3()
+    public function test3a()
     {
         $obj = new stdClass();
-        $algo = fn (): string|FileNotFound => "";
+        $algo = fn (): string|FileNotFound => "content of template file";
         $algoFactory = new class($algo) implements TemplatingStrategyInterface {
             public function __construct(private Closure $algo)
             {
@@ -114,13 +116,47 @@ final class TemplateEngineTest extends TestCase
          */
         $executorSpy = $this->createMock(Dispatcher::class);
         $binderSpy->expects($this->once())->method("bind")->willReturn($algo);
-        $executorSpy->expects($this->once())->method("execute")->willReturn($algo());
+        $executorSpy->expects($this->once())->method("getContents")->willReturn($algo());
         $template = new TemplateEngine(
             $algoFactory,
             $binderSpy,
             $executorSpy,
         );
         $template->apply(self::EXISTING_FILE, new HtmlSafeContext($obj));
+    }
+
+    /**
+     * @testdox Shall return content string from given template with optional object is not given
+     */
+    public function test3b()
+    {
+        $algo = fn (): string|FileNotFound => "";
+        $algoFactory = new class($algo) implements TemplatingStrategyInterface {
+            public function __construct(private Closure $algo)
+            {
+
+            }
+            public function getAlgorithm(): Closure
+            {
+                return $this->algo;
+            }
+        };
+        /**
+         * @var MockObject&Binder
+         */
+        $binderSpy = $this->createMock(Binder::class);
+        /**
+         * @var MockObject&Dispatcher
+         */
+        $executorSpy = $this->createMock(Dispatcher::class);
+        $binderSpy->expects($this->never())->method("bind");
+        $executorSpy->expects($this->once())->method("getContents")->willReturn($algo());
+        $template = new TemplateEngine(
+            $algoFactory,
+            $binderSpy,
+            $executorSpy,
+        );
+        $template->apply(self::EXISTING_FILE);
     }
 
     /**
@@ -148,8 +184,8 @@ final class TemplateEngineTest extends TestCase
          * @var MockObject&Dispatcher
          */
         $executorSpy = $this->createMock(Dispatcher::class);
-        $binderSpy->expects($this->once())->method("bind")->willReturn(null);
-        $executorSpy->expects($this->never())->method("execute");
+        $binderSpy->expects($this->once())->method("bind")->willReturn(false);
+        $executorSpy->expects($this->never())->method("getContents");
         $template = new TemplateEngine(
             $algoFactory,
             $binderSpy,
@@ -159,12 +195,12 @@ final class TemplateEngineTest extends TestCase
     }
 
     /**
-     * @testdox Shall return empty string when algorithm returns boolean value
+     * @testdox Shall return value when algorithm returns boolean value
      */
     public function test5()
     {
         $obj = new stdClass();
-        $algo = fn (): string|FileNotFound|bool => true;
+        $algo = fn (): bool|FileNotFound => true;
         $algoFactory = new class($algo) implements TemplatingStrategyInterface {
             public function __construct(private Closure $algo)
             {
@@ -184,49 +220,49 @@ final class TemplateEngineTest extends TestCase
          */
         $executorSpy = $this->createMock(Dispatcher::class);
         $binderSpy->expects($this->once())->method("bind")->willReturn($algo);
-        $executorSpy->expects($this->once())->method("execute")->willReturn(true);
-        $template = new TemplateEngine(
-            $algoFactory,
-            $binderSpy,
-            $executorSpy,
-        );
-        $value = $template->apply(self::EXISTING_FILE, new HtmlSafeContext($obj));
-        $this->assertSame("", $value);
-    }
-
-    /**
-     * @testdox Shall return false when algorithm returns string value
-     */
-    public function test6()
-    {
-        $obj = new stdClass();
-        $algo = fn (): string|FileNotFound|bool => "some string";
-        $algoFactory = new class($algo) implements TemplatingStrategyInterface {
-            public function __construct(private Closure $algo)
-            {
-
-            }
-            public function getAlgorithm(): Closure
-            {
-                return $this->algo;
-            }
-        };
-        /**
-         * @var MockObject&Binder
-         */
-        $binderSpy = $this->createMock(Binder::class);
-        /**
-         * @var MockObject&Dispatcher
-         */
-        $executorSpy = $this->createMock(Dispatcher::class);
-        $binderSpy->expects($this->once())->method("bind")->willReturn($algo);
-        $executorSpy->expects($this->once())->method("execute")->willReturn("some string");
+        $executorSpy->expects($this->once())->method("dispatch")->willReturn(true);
         $template = new TemplateEngine(
             $algoFactory,
             $binderSpy,
             $executorSpy,
         );
         $value = $template->render(self::EXISTING_FILE, new HtmlSafeContext($obj));
-        $this->assertFalse($value);
+        $this->assertTrue($value);
+    }
+
+    /**
+     * @testdox Shall return string when algorithm returns string value
+     */
+    public function test6()
+    {
+        $obj = new stdClass();
+        $algo = fn (): string|FileNotFound => self::FAKE_CONTENTS;
+        $algoFactory = new class($algo) implements TemplatingStrategyInterface {
+            public function __construct(private Closure $algo)
+            {
+
+            }
+            public function getAlgorithm(): Closure
+            {
+                return $this->algo;
+            }
+        };
+        /**
+         * @var MockObject&Binder
+         */
+        $binderSpy = $this->createMock(Binder::class);
+        /**
+         * @var MockObject&Dispatcher
+         */
+        $executorSpy = $this->createMock(Dispatcher::class);
+        $binderSpy->expects($this->once())->method("bind")->willReturn($algo);
+        $executorSpy->expects($this->once())->method("getContents")->willReturn(self::FAKE_CONTENTS);
+        $template = new TemplateEngine(
+            $algoFactory,
+            $binderSpy,
+            $executorSpy,
+        );
+        $value = $template->apply(self::EXISTING_FILE, new HtmlSafeContext($obj));
+        $this->assertSame(self::FAKE_CONTENTS, $value);
     }
 }
