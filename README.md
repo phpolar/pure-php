@@ -27,7 +27,7 @@ $page = new Page();
 $safeContext = new HtmlSafeContext($page);
 $templateEng->render("path/to/template.php", $safeContext);
 // or...
-echo $templateEng->apply("path/to/template.php", $safeContext);
+echo $templateEng->apply("path/to/template.php", $safeContext /* optional */);
 ```
 
 ## Example 1
