@@ -1,3 +1,9 @@
+## 0.3.1 (2023-02-06)
+
+### Fix
+
+- **HtmlSafeContext**: add support for calling methods on the inner object
+
 ## 0.3.0 (2023-02-05)
 
 ### Feat
