@@ -13,15 +13,15 @@ use Stringable;
  */
 final class HtmlSafeContext
 {
-    /**
-     * @suppress PhanTypeMismatchArgumentInternal
-     */
+    private object $innerObject19;
+
     public function __construct(object $obj)
     {
-        array_walk(
-            $obj,
-            fn ($v, string $name) => $this->$name = $this->convertVal($v)
-        );
+
+        $this->innerObject19 = clone $obj;
+        foreach (get_object_vars($obj) as $propName => $value) {
+             $this->$propName = $this->convertVal($value);
+        }
     }
 
     private function convertVal(mixed $val): mixed
@@ -46,26 +46,19 @@ final class HtmlSafeContext
     private function convertProps(object &$obj): object
     {
         $copy = clone $obj;
-        array_walk_recursive($copy, fn (&$v) => $v = $this->convertVal($v));
+        array_walk_recursive($copy, fn (&$val) => $val = $this->convertVal($val));
         return $copy;
     }
 
     /**
-     * @codeCoverageIgnore
      * @suppress PhanUnusedPublicFinalMethodParameter
      */
-    public function __call(mixed $a, mixed $b): never
+    public function __call(mixed $methodName, mixed $args): mixed
     {
-        throw new RuntimeException("bang");
-    }
-
-    /**
-     * @codeCoverageIgnore
-     * @suppress PhanUnusedPublicFinalMethodParameter
-     */
-    public function __get(string $a): never
-    {
-        throw new RuntimeException("bang");
+        if (method_exists($this->innerObject19, $methodName) === false) {
+            return false;
+        }
+        return $this->innerObject19->$methodName(...$args);
     }
 
     /**
@@ -73,7 +66,7 @@ final class HtmlSafeContext
      */
     public function __invoke(): never
     {
-        throw new RuntimeException("bang");
+        throw new RuntimeException("Non-invokable class.");
     }
 
     /**
@@ -81,6 +74,6 @@ final class HtmlSafeContext
      */
     public function __serialize(): never
     {
-        throw new RuntimeException("bang");
+        throw new RuntimeException("Non-serializable class.");
     }
 }
