@@ -13,6 +13,7 @@
         "ext-mbstring": "*",
         "phan/phan": "^5.4",
         "php-coveralls/php-coveralls": "^2.5",
+        "phpmd/phpmd": "^2.13",
         "phpstan/phpstan": "^1.9",
         "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "^3.7"
@@ -39,7 +40,9 @@
         "check": [
             "@lint -q",
             "@analyze -q",
-            "@test --configuration=phpunit.dev.xml --testsuite unit"
+            "@test:unit",
+            "@smell",
+            "@semgrep"
         ],
         "ci:analyze": "composer exec \"@analyze\"",
         "ci:lint": "composer exec \"@lint\"",
@@ -52,8 +55,10 @@
             "Composer\\Config::disableProcessTimeout",
             "watch -n 30 -cx vendor/bin/phpunit --color=always --testsuite unit"
         ],
+        "semgrep": "semgrep --config auto -l php ./src",
+        "smell": "composer exec \"phpmd ./src ansi design,codesize,naming\"",
         "test": "phpunit --color=always",
-        "test:acceptance": "@test --configuration=phpunit.dev.xml --testsuite acceptance",
+        "test:acceptance": "@test --configuration=phpunit.dev.xml --testsuite acceptance --testdox",
         "test:acceptance:report": "@test --configuration=phpunit.dev.xml --testsuite acceptance --testdox-text acceptance-test-results.md",
         "test:unit": "@test --configuration=phpunit.dev.xml --testsuite unit",
         "test:coverage": "XDEBUG_MODE=coverage composer exec \"@test --configuration=phpunit.ci.xml --coverage-text --testsuite unit\"",
