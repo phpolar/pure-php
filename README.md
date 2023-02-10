@@ -90,7 +90,6 @@ class Page
 
 ```
 
-## [API Documentation](https://phpolar.github.io/php-templating-api/)
+## [API Documentation](https://phpolar.github.io/php-templating/)
 
 [Back to top](#php-templating)
-
