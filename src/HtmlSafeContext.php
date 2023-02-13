@@ -27,11 +27,11 @@ final class HtmlSafeContext
     private function convertVal(mixed $val): mixed
     {
         return match (gettype($val)) {
-            "string" => new HtmlSafeString($val),
+            "string" => (string) new HtmlSafeString($val),
             "array" => array_map(self::convertVal(...), $val),
             "resource", "resource (closed)" => "",
             "object" => match ($val instanceof Stringable) {
-                true => new HtmlSafeString((string) $val),
+                true => (string) new HtmlSafeString((string) $val),
                 false => $this->convertProps($val),
             },
             default => $val,

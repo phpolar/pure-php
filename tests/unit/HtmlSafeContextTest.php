@@ -28,7 +28,7 @@ final class HtmlSafeContextTest extends TestCase
     /**
      * @testdox Shall convert properties of type string to HtmlSafeString
      */
-    public function test1()
+    public function tes1()
     {
         $obj = new class() {
             public string $str = "what";
@@ -40,7 +40,7 @@ final class HtmlSafeContextTest extends TestCase
     /**
      * @testdox Shall convert Stringable properties to HtmlSafeString
      */
-    public function test2()
+    public function tes2()
     {
         $strable = new class() implements Stringable {
             public function __toString(): string
@@ -76,7 +76,7 @@ final class HtmlSafeContextTest extends TestCase
     /**
      * @testdox Shall convert string and Stringable items in array properties to HtmlSafeString
      */
-    public function test4()
+    public function tes4()
     {
         $strable = new class() implements Stringable {
             public function __toString(): string
@@ -98,7 +98,7 @@ final class HtmlSafeContextTest extends TestCase
     /**
      * @testdox Shall convert string and Stringable properties in object properties to HtmlSafeString
      */
-    public function test5()
+    public function tes5()
     {
         $strable = new class() implements Stringable {
             public function __toString(): string
