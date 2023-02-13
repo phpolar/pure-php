@@ -1,3 +1,9 @@
+## 0.3.2 (2023-02-12)
+
+### Fix
+
+- **HtmlSafeContext**: convert back to string
+
 ## 0.3.1 (2023-02-06)
 
 ### Fix
