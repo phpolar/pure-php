@@ -9,6 +9,11 @@ namespace Phpolar\PhpTemplating;
  */
 final class TemplateEngine
 {
+    private const ALLOWED_EXTENSIONS = [
+        "php",
+        "phtml",
+        "html",
+    ];
     public function __construct(
         private TemplatingStrategyInterface $renderingAlgoFactory,
         private Binder $binder,
@@ -19,14 +24,18 @@ final class TemplateEngine
     /**
      * Returns the content string
      */
-    public function apply(string $pathToTemplate, ?HtmlSafeContext $context = null): string|FileNotFound|BindFailed
+    public function apply(string $givenPath, ?HtmlSafeContext $context = null): string|FileNotFound|BindFailed
     {
         $renderingAlgo = $this->renderingAlgoFactory->getAlgorithm();
         $algo = $context === null ? $renderingAlgo : $this->binder->bind($renderingAlgo, $context);
         if ($algo === false) {
             return new BindFailed();
         }
-        return $this->dispatcher->getContents($algo, $pathToTemplate);
+        $result = $this->resolveBasename($givenPath);
+        if ($result instanceof FileNotFound) {
+            return $result;
+        }
+        return $this->dispatcher->getContents($algo, $result);
     }
 
     /**
@@ -40,5 +49,29 @@ final class TemplateEngine
             return new BindFailed();
         }
         return $this->dispatcher->dispatch($bound, $pathToTemplate);
+    }
+
+    /**
+     * Allow for supplying the basename only.
+     *
+     * An attempt will be made to locate
+     * the file in `src/templates` relative
+     * to the root of the project.
+     *
+     * Files with `.php` and `.phtml` extensions
+     * are allowed.
+     */
+    private function resolveBasename(string $givenPath): string|FileNotFound
+    {
+        if (file_exists($givenPath)) {
+            return $givenPath;
+        }
+        foreach (self::ALLOWED_EXTENSIONS as $allowedExt) {
+            $path = "src/templates/$givenPath.$allowedExt";
+            if (file_exists($path)) {
+                return $path;
+            }
+        }
+        return new FileNotFound();
     }
 }

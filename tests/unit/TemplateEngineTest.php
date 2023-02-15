@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Phpolar\PhpTemplating;
 
 use Closure;
+use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\UsesClass;
 use stdClass;
@@ -19,6 +21,13 @@ final class TemplateEngineTest extends TestCase
 {
     const EXISTING_FILE = "tests/__templates__/a.php";
     const FAKE_CONTENTS = "some string";
+
+    public static function resolvedPaths(): Generator
+    {
+        yield ["tpl1", "src/templates/tpl1.phtml"];
+        yield ["tpl2", "src/templates/tpl2.php"];
+        yield ["tpl3", "src/templates/tpl3.html"];
+    }
 
     #[TestDox("Shall display content from given template with object variables bound")]
     public function test1()
@@ -251,5 +260,42 @@ final class TemplateEngineTest extends TestCase
         );
         $value = $template->apply(self::EXISTING_FILE, new HtmlSafeContext($obj));
         $this->assertSame(self::FAKE_CONTENTS, $value);
+    }
+
+    #[TestDox("Shall allow basename of template file as argument")]
+    #[DataProvider("resolvedpaths")]
+    public function test7(string $basename, string $expectedResolvedPath)
+    {
+        $obj = new stdClass();
+        $algo = fn (): string|FileNotFound => "";
+        $algoFactory = new class($algo) implements TemplatingStrategyInterface {
+            public function __construct(private Closure $algo)
+            {
+
+            }
+            public function getAlgorithm(): Closure
+            {
+                return $this->algo;
+            }
+        };
+        /**
+         * @var MockObject&Binder
+         */
+        $binderSpy = $this->createMock(Binder::class);
+        /**
+         * @var MockObject&Dispatcher
+         */
+        $executorSpy = $this->createMock(Dispatcher::class);
+        $binderSpy->expects($this->once())->method("bind")->willReturn($algo);
+        $executorSpy->expects($this->once())->method("getContents")->with($algo, $expectedResolvedPath);
+        $template = new TemplateEngine(
+            $algoFactory,
+            $binderSpy,
+            $executorSpy,
+        );
+        $processDir = getcwd();
+        chdir("tests/__templates__");
+        $template->apply($basename, new HtmlSafeContext($obj));
+        chdir($processDir);
     }
 }
