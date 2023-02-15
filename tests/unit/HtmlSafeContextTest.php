@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Phpolar\PhpTemplating;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\TestDox;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Stringable;
 
-/**
- * @covers \Phpolar\PhpTemplating\HtmlSafeContext
- * @uses \Phpolar\PhpTemplating\HtmlSafeString
- */
+#[CoversClass(HtmlSafeContext::class)]
+#[UsesClass(HtmlSafeString::class)]
 final class HtmlSafeContextTest extends TestCase
 {
     /**
@@ -25,9 +26,7 @@ final class HtmlSafeContextTest extends TestCase
         }
     }
 
-    /**
-     * @testdox Shall convert properties of type string to HtmlSafeString
-     */
+    #[TestDox("Shall convert properties of type string to HtmlSafeString")]
     public function tes1()
     {
         $obj = new class() {
@@ -37,9 +36,7 @@ final class HtmlSafeContextTest extends TestCase
         $this->assertInstanceOf(HtmlSafeString::class, $sut->str);
     }
 
-    /**
-     * @testdox Shall convert Stringable properties to HtmlSafeString
-     */
+    #[TestDox("Shall convert Stringable properties to HtmlSafeString")]
     public function tes2()
     {
         $strable = new class() implements Stringable {
@@ -56,9 +53,7 @@ final class HtmlSafeContextTest extends TestCase
         $this->assertInstanceOf(HtmlSafeString::class, $sut->strable);
     }
 
-    /**
-     * @testdox Shall not convert non-string non-Stringable properties to HtmlSafeString
-     */
+    #[TestDox("Shall not convert non-string non-Stringable properties to HtmlSafeString")]
     public function test3()
     {
         $obj = new class() {
@@ -73,9 +68,7 @@ final class HtmlSafeContextTest extends TestCase
         }
     }
 
-    /**
-     * @testdox Shall convert string and Stringable items in array properties to HtmlSafeString
-     */
+    #[TestDox("Shall convert string and Stringable items in array properties to HtmlSafeString")]
     public function tes4()
     {
         $strable = new class() implements Stringable {
@@ -95,9 +88,7 @@ final class HtmlSafeContextTest extends TestCase
         );
     }
 
-    /**
-     * @testdox Shall convert string and Stringable properties in object properties to HtmlSafeString
-     */
+    #[TestDox("Shall convert string and Stringable properties in object properties to HtmlSafeString")]
     public function tes5()
     {
         $strable = new class() implements Stringable {
@@ -128,9 +119,7 @@ final class HtmlSafeContextTest extends TestCase
     }
 
 
-    /**
-     * @testdox Shall not convert non-string non-Stringable properties to HtmlSafeString
-     */
+    #[TestDox("Shall not convert non-string non-Stringable properties to HtmlSafeString")]
     public function test6()
     {
         $obj = new class() {

@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace Phpolar\PhpTemplating;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\TestDox;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Phpolar\PhpTemplating\Binder
- * @uses \Phpolar\PhpTemplating\HtmlSafeContext
- * @uses \Phpolar\PhpTemplating\HtmlSafeString
- */
+#[CoversClass(Binder::class)]
+#[UsesClass(HtmlSafeContext::class)]
+#[UsesClass(HtmlSafeString::class)]
 final class BinderTest extends TestCase
 {
-    /**
-     * @testdox Shall bind a context to the given scope
-     */
+     #[TestDox("Shall bind a context to the given scope")]
     public function test1()
     {
         $givenVar = "SOME VAR";
