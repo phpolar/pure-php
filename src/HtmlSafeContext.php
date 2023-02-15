@@ -55,7 +55,10 @@ final class HtmlSafeContext
      */
     public function __call(mixed $methodName, mixed $args): mixed
     {
-        if (method_exists($this->innerObject19, $methodName) === false) {
+        if (
+            is_string($methodName) === true &&
+            method_exists($this->innerObject19, $methodName) === false
+        ) {
             return false;
         }
         return $this->innerObject19->$methodName(...$args);
