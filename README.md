@@ -30,6 +30,19 @@ $templateEng->render("path/to/template.php", $safeContext);
 echo $templateEng->apply("path/to/template.php", $safeContext /* optional */);
 ```
 
+### Template Basename Only
+
+```php
+// or...
+echo $templateEng->apply("template", $safeContext /* optional */);
+// or...
+echo $templateEng->apply("template", $safeContext /* optional */);
+```
+
+> The template engine will look for files with .php, .phtml, or .html
+extensions in `src/templates` directory relative to the current
+working directory.
+
 ## Example 1
 
 ### Pure PHP Templates
