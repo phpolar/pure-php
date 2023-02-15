@@ -5,23 +5,22 @@ declare(strict_types=1);
 namespace Phpolar\PhpTemplating;
 
 use Closure;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\TestDox;
+use PHPUnit\Framework\Attributes\UsesClass;
 use stdClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Phpolar\PhpTemplating\TemplateEngine
- * @uses \Phpolar\PhpTemplating\HtmlSafeContext
- * @uses \Phpolar\PhpTemplating\HtmlSafeString
- */
+#[CoversClass(TemplateEngine::class)]
+#[UsesClass(HtmlSafeContext::class)]
+#[UsesClass(HtmlSafeString::class)]
 final class TemplateEngineTest extends TestCase
 {
     const EXISTING_FILE = "tests/__templates__/a.php";
     const FAKE_CONTENTS = "some string";
 
-    /**
-     * @testdox Shall display content from given template with object variables bound
-     */
+    #[TestDox("Shall display content from given template with object variables bound")]
     public function test1()
     {
         $obj = new stdClass();
@@ -54,9 +53,7 @@ final class TemplateEngineTest extends TestCase
         $template->render(self::EXISTING_FILE, new HtmlSafeContext($obj));
     }
 
-    /**
-     * @testdox Shall not execute rendering algorithm when binding fails
-     */
+    #[TestDox("Shall not execute rendering algorithm when binding fails")]
     public function test2()
     {
         $obj = new stdClass();
@@ -90,9 +87,7 @@ final class TemplateEngineTest extends TestCase
         $template->render(self::EXISTING_FILE, new HtmlSafeContext($obj));
     }
 
-    /**
-     * @testdox Shall return content string from given template with object variables bound
-     */
+    #[TestDox("Shall return content string from given template with object variables bound")]
     public function test3a()
     {
         $obj = new stdClass();
@@ -125,9 +120,7 @@ final class TemplateEngineTest extends TestCase
         $template->apply(self::EXISTING_FILE, new HtmlSafeContext($obj));
     }
 
-    /**
-     * @testdox Shall return content string from given template with optional object is not given
-     */
+    #[TestDox("Shall return content string from given template with optional object is not given")]
     public function test3b()
     {
         $algo = fn (): string|FileNotFound => "";
@@ -159,9 +152,7 @@ final class TemplateEngineTest extends TestCase
         $template->apply(self::EXISTING_FILE);
     }
 
-    /**
-     * @testdox Shall not execute stream content algorithm when binding fails
-     */
+    #[TestDox("Shall not execute stream content algorithm when binding fails")]
     public function test4()
     {
         $obj = new stdClass();
@@ -194,9 +185,7 @@ final class TemplateEngineTest extends TestCase
         $template->apply(self::EXISTING_FILE, new HtmlSafeContext($obj));
     }
 
-    /**
-     * @testdox Shall return value when algorithm returns boolean value
-     */
+    #[TestDox("Shall return value when algorithm returns boolean value")]
     public function test5()
     {
         $obj = new stdClass();
@@ -230,9 +219,7 @@ final class TemplateEngineTest extends TestCase
         $this->assertTrue($value);
     }
 
-    /**
-     * @testdox Shall return string when algorithm returns string value
-     */
+    #[TestDox("Shall return string when algorithm returns string value")]
     public function test6()
     {
         $obj = new stdClass();

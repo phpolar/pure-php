@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Phpolar\PhpTemplating;
 
+use PHPUnit\Framework\Attributes\CoversNothing;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use const \Phpolar\PhpTemplating\Tests\PROJECT_MEMORY_USAGE_THRESHOLD;
 
-/**
- * @coversNothing
- * @runTestsInSeparateProcesses
- */
+#[CoversNothing]
+#[RunTestsInSeparateProcesses]
 final class MemoryUsageTest extends TestCase
 {
     public function thresholds()
@@ -20,12 +22,9 @@ final class MemoryUsageTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider thresholds()
-     * @testdox Memory usage shall be below $threshold bytes
-     */
-    public function shallBeBelowThreshold1(int $threshold)
+    #[Test]
+    #[TestDox("Memory usage shall be below " . PROJECT_MEMORY_USAGE_THRESHOLD . " bytes")]
+    public function shallBeBelowThreshold1()
     {
         $engine = new TemplateEngine(
             new FileRenderingStrategy(),
@@ -49,15 +48,12 @@ final class MemoryUsageTest extends TestCase
         $engine->render("tests/__templates__/hack.php", new HtmlSafeContext($objWithHacks));
         $totalUsed += memory_get_usage();
         $this->assertGreaterThan(0, $totalUsed);
-        $this->assertLessThanOrEqual($threshold, $totalUsed);
+        $this->assertLessThanOrEqual((int) PROJECT_MEMORY_USAGE_THRESHOLD, $totalUsed);
     }
 
-    /**
-     * @test
-     * @dataProvider thresholds()
-     * @testdox Memory usage shall be below $threshold bytes
-     */
-    public function shallBeBelowThreshold2(int $threshold)
+    #[Test]
+    #[TestDox("Memory usage shall be below " . PROJECT_MEMORY_USAGE_THRESHOLD . " bytes")]
+    public function shallBeBelowThreshold2()
     {
         $engine = new TemplateEngine(
             new StreamContentStrategy(),
@@ -81,6 +77,6 @@ final class MemoryUsageTest extends TestCase
         $totalUsed += memory_get_usage();
         $this->assertSame($mitigated, $result);
         $this->assertGreaterThan(0, $totalUsed);
-        $this->assertLessThanOrEqual($threshold, $totalUsed);
+        $this->assertLessThanOrEqual((int) PROJECT_MEMORY_USAGE_THRESHOLD, $totalUsed);
     }
 }

@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Phpolar\PhpTemplating;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Phpolar\PhpTemplating\Dispatcher
- */
+#[CoversClass(Dispatcher::class)]
 final class DispatcherTest extends TestCase
 {
-    /**
-     * @testdox Shall call the given algorithm with the given path string
-     */
+    #[TestDox("Shall call the given algorithm with the given path string")]
     public function test1()
     {
         $givenPath = "SOME PATH";
@@ -25,9 +23,7 @@ final class DispatcherTest extends TestCase
         $sut->getContents($algo, $givenPath);
     }
 
-    /**
-     * @testdox Shall call the given algorithm with the given path string
-     */
+    #[TestDox("Shall call the given algorithm with the given path string")]
     public function test2()
     {
         $givenPath = "SOME PATH";

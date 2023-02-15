@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Phpolar\PhpTemplating;
 
+use PHPUnit\Framework\Attributes\CoversNothing;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversNothing
- * @runTestsInSeparateProcesses
- */
+#[CoversNothing]
+#[RunTestsInSeparateProcesses]
 final class SecurityTest extends TestCase
 {
     public function getTemplatingEngine(): TemplateEngine
@@ -21,10 +23,8 @@ final class SecurityTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     * @testdox Shall mitigate cross-site scripting
-     */
+    #[Test]
+    #[TestDox("Shall mitigate cross-site scripting")]
     public function criterion_1()
     {
         $templatingEngine = $this->getTemplatingEngine();
