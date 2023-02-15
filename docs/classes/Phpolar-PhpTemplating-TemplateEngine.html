@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
             <title>Documentation</title>
-
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="../">
     <link rel="icon" href="images/favicon.ico"/>
@@ -61,7 +61,7 @@
     <ul class="phpdocumentor-list">
                     <li>
                 <a href="namespaces/phpolar-phptemplating.html" class="">PhpTemplating</a>
-
+                
             </li>
             </ul>
 
@@ -74,12 +74,12 @@
     <ul class="phpdocumentor-list">
                     <li>
                 <a href="packages/Phpolar-PhpTemplating.html" class="">PhpTemplating</a>
-
+                
             </li>
             </ul>
 
                         </section>
-
+            
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="graphs/classes.html">Class Diagram</a></h3>
@@ -104,7 +104,7 @@
         <h2 class="phpdocumentor-content__title">
     TemplateEngine
 
-
+    
             <div class="phpdocumentor-element__package">
             in package
             <ul class="phpdocumentor-breadcrumbs">
@@ -112,8 +112,8 @@
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/Phpolar-PhpTemplating.html">PhpTemplating</a></li>
                             </ul>
         </div>
-
-
+    
+    
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
@@ -164,9 +164,9 @@
 
 
 
+        
 
-
-
+        
 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
@@ -186,11 +186,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="TemplateEngine.php"><a href="files/templateengine.html"><abbr title="TemplateEngine.php">TemplateEngine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">12</span>
+    <span class="phpdocumentor-element-found-in__line">17</span>
 
     </aside>
 
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Phpolar-PhpTemplating-TemplatingStrategyInterface.html"><abbr title="\Phpolar\PhpTemplating\TemplatingStrategyInterface">TemplatingStrategyInterface</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$renderingAlgoFactory</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Phpolar-PhpTemplating-Binder.html"><abbr title="\Phpolar\PhpTemplating\Binder">Binder</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$binder</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Phpolar-PhpTemplating-Dispatcher.html"><abbr title="\Phpolar\PhpTemplating\Dispatcher">Dispatcher</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dispatcher</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
@@ -225,13 +225,13 @@
             </dd>
             </dl>
 
-
+    
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">mixed</span>
             &mdash;
-
-
+        
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -246,7 +246,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="TemplateEngine.php"><a href="files/templateengine.html"><abbr title="TemplateEngine.php">TemplateEngine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">22</span>
+    <span class="phpdocumentor-element-found-in__line">27</span>
 
     </aside>
 
@@ -254,13 +254,13 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">apply</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pathToTemplate</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Phpolar-PhpTemplating-HtmlSafeContext.html"><abbr title="\Phpolar\PhpTemplating\HtmlSafeContext">HtmlSafeContext</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$context</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|<a href="classes/Phpolar-PhpTemplating-FileNotFound.html"><abbr title="\Phpolar\PhpTemplating\FileNotFound">FileNotFound</abbr></a>|<a href="classes/Phpolar-PhpTemplating-BindFailed.html"><abbr title="\Phpolar\PhpTemplating\BindFailed">BindFailed</abbr></a></span></code>
+                    <span class="phpdocumentor-signature__name">apply</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$givenPath</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Phpolar-PhpTemplating-HtmlSafeContext.html"><abbr title="\Phpolar\PhpTemplating\HtmlSafeContext">HtmlSafeContext</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$context</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|<a href="classes/Phpolar-PhpTemplating-FileNotFound.html"><abbr title="\Phpolar\PhpTemplating\FileNotFound">FileNotFound</abbr></a>|<a href="classes/Phpolar-PhpTemplating-BindFailed.html"><abbr title="\Phpolar\PhpTemplating\BindFailed">BindFailed</abbr></a></span></code>
 
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pathToTemplate</span>
+                <span class="phpdocumentor-signature__argument__name">$givenPath</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -277,13 +277,13 @@
             </dd>
             </dl>
 
-
+    
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">string|<a href="classes/Phpolar-PhpTemplating-FileNotFound.html"><abbr title="\Phpolar\PhpTemplating\FileNotFound">FileNotFound</abbr></a>|<a href="classes/Phpolar-PhpTemplating-BindFailed.html"><abbr title="\Phpolar\PhpTemplating\BindFailed">BindFailed</abbr></a></span>
             &mdash;
-
-
+        
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -298,7 +298,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="TemplateEngine.php"><a href="files/templateengine.html"><abbr title="TemplateEngine.php">TemplateEngine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">35</span>
+    <span class="phpdocumentor-element-found-in__line">44</span>
 
     </aside>
 
@@ -308,7 +308,7 @@
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">render</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pathToTemplate</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Phpolar-PhpTemplating-HtmlSafeContext.html"><abbr title="\Phpolar\PhpTemplating\HtmlSafeContext">HtmlSafeContext</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$context</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool|<a href="classes/Phpolar-PhpTemplating-FileNotFound.html"><abbr title="\Phpolar\PhpTemplating\FileNotFound">FileNotFound</abbr></a>|<a href="classes/Phpolar-PhpTemplating-BindFailed.html"><abbr title="\Phpolar\PhpTemplating\BindFailed">BindFailed</abbr></a></span></code>
 
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -329,17 +329,17 @@
             </dd>
             </dl>
 
-
+    
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool|<a href="classes/Phpolar-PhpTemplating-FileNotFound.html"><abbr title="\Phpolar\PhpTemplating\FileNotFound">FileNotFound</abbr></a>|<a href="classes/Phpolar-PhpTemplating-BindFailed.html"><abbr title="\Phpolar\PhpTemplating\BindFailed">BindFailed</abbr></a></span>
             &mdash;
-
-
+        
+    
 </article>
             </section>
 
-
+        
     <script type="text/javascript">
         function loadExternalCodeSnippets(line) {
             Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach((pre) => {
