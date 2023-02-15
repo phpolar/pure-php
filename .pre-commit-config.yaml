@@ -5,9 +5,9 @@ repos:
     rev: v4.3.0
     hooks:
       - id: trailing-whitespace
-        exclude: (composer\.lock|tests\/__templates__)
+        exclude: (composer\.lock|tests\/__templates__|docs)
       - id: end-of-file-fixer
-        exclude: (composer\.lock|tests\/__templates__)
+        exclude: (composer\.lock|tests\/__templates__|docs)
       - id: check-json
         exclude: (\.vscode|composer\.lock$)
       - id: check-xml
