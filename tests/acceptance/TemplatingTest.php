@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace Phpolar\PhpTemplating;
 
 use Generator;
+use PHPUnit\Framework\Attributes\CoversNothing;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversNothing
- * @runTestsInSeparateProcesses
- */
+#[CoversNothing]
+#[RunTestsInSeparateProcesses]
 final class TemplatingTest extends TestCase
 {
     const TITLE = "TEST TITLE";
@@ -35,7 +38,7 @@ final class TemplatingTest extends TestCase
         });
     }
 
-    public function templateScenarios(): Generator
+    public static function templateScenarios(): Generator
     {
         $title = self::TITLE;
         $name = self::NAME;
@@ -60,11 +63,9 @@ final class TemplatingTest extends TestCase
         ];
     }
 
-    /**
-     * @testdox Shall support using the public properties of an object as variables in a template
-     * @test
-     * @dataProvider templateScenarios()
-     */
+    #[Test]
+    #[TestDox("Shall support using the public properties of an object as variables in a template")]
+    #[DataProvider("templateScenarios")]
     public function criterion_1(string $pathToTemplate, string $expectedOutput)
     {
         $givenObject = $this->getContext();
