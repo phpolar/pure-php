@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Phpolar\PhpTemplating;
+namespace Phpolar\PurePhp;
 
 /**
  * Represents the scenario when binding a context to the templating strategy fails
