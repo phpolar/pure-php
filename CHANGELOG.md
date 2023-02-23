@@ -1,3 +1,15 @@
+## 1.0.0 (2023-02-22)
+
+### BREAKING CHANGE
+
+- Closes #19
+- Closes #19
+
+### Feat
+
+- change project name
+- change project name
+
 ## 0.5.0 (2023-02-22)
 
 ### Feat
