@@ -1,6 +1,6 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "phpolar/php-templating",
+    "name": "phpolar/pure-php",
     "description": "Pure PHP Templates",
     "keywords": [
         "templates",
