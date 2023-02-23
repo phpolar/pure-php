@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Phpolar\PhpTemplating;
+namespace Phpolar\PurePhp;
 
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;

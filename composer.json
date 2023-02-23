@@ -21,7 +21,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Phpolar\\PhpTemplating\\": "src/"
+            "Phpolar\\PurePhp\\": "src/"
         }
     },
     "authors": [
