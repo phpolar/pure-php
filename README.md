@@ -2,7 +2,9 @@
   <a href="https://github.com/phpolar"><img src="phpolar.svg" width="240" alt="Phpolar Logo" /></a>
 </p>
 
-# PHP Templating
+# Pure PHP
+
+Templating that's just PHP.  That's it.  Seriously.
 
 Support using [pure PHP templates](#pure-php-templates) with automatic XSS mitigation.
 
@@ -18,7 +20,7 @@ Support using [pure PHP templates](#pure-php-templates) with automatic XSS mitig
 ## Installation
 
 ```bash
-composer require phpolar/php-templating
+composer require phpolar/pure-php
 ```
 
 ## Usage
@@ -27,7 +29,7 @@ $page = new Page();
 $safeContext = new HtmlSafeContext($page);
 $templateEng->render("path/to/template.php", $safeContext);
 // or...
-echo $templateEng->apply("path/to/template.php", $safeContext /* optional */);
+echo $templateEng->apply("path/to/template", $safeContext /* optional */);
 ```
 
 ### Template Basename Only

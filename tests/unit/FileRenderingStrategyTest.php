@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Phpolar\PhpTemplating;
+namespace Phpolar\PurePhp;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;

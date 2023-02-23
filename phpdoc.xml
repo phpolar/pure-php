@@ -12,7 +12,7 @@
     <version number="0.4.0">
         <api format="php">
             <source dsn="./src"></source>
-          <default-package-name>Phpolar\PhpTemplating</default-package-name>
+          <default-package-name>Phpolar\PurePhp</default-package-name>
           <visibility>public</visibility>
         </api>
     </version>
