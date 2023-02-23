@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Phpolar\PhpTemplating;
+namespace Phpolar\PurePhp;
 
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
@@ -10,7 +10,7 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
-use const \Phpolar\PhpTemplating\Tests\PROJECT_SIZE_THRESHOLD;
+use const \Phpolar\PurePhp\Tests\PROJECT_SIZE_THRESHOLD;
 
 #[CoversNothing]
 #[RunTestsInSeparateProcesses]
