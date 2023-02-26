@@ -56,6 +56,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Phpolar-PurePhp-HtmlSafeContext.html#method___construct"
         },                {
+            "fqsen": "\\Phpolar\\PurePhp\\HtmlSafeContext\u003A\u003A__get\u0028\u0029",
+            "name": "__get",
+            "summary": "",
+            "url": "classes/Phpolar-PurePhp-HtmlSafeContext.html#method___get"
+        },                {
             "fqsen": "\\Phpolar\\PurePhp\\HtmlSafeContext\u003A\u003A__call\u0028\u0029",
             "name": "__call",
             "summary": "",
