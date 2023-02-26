@@ -16,6 +16,6 @@ class Binder
      */
     public function bind(Closure $algo, HtmlSafeContext $context): Closure|false
     {
-        return Closure::bind($algo, $context) ?? false;
+        return $algo->bind($algo, $context) ?? false;
     }
 }
