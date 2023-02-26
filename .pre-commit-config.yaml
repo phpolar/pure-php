@@ -21,4 +21,15 @@ repos:
     rev: 1.4.0
     hooks:
       - id: php-lint
+        files: \.(php)$
       - id: php-unit
+        files: \.(php)$
+      - id: php-stan
+        files: \.(php)$
+        exclude: (examples|tests|.phan)
+  - repo: https://gitlab.com/daverona/pre-commit/php
+    rev: 0.6.0 # use the most recent version
+    hooks:
+      # Hooks using native
+      - id: phpmd # static analyzer for PHP code
+        exclude: (examples|tests|.phan)
