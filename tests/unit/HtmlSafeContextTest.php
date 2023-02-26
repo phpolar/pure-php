@@ -63,8 +63,8 @@ final class HtmlSafeContextTest extends TestCase
             public ?float $nope = null;
         };
         $sut = new HtmlSafeContext($obj);
-        foreach ($sut as $val) {
-            $this->assertNotInstanceOf(HtmlSafeString::class, $val);
+        foreach ($obj as $val) {
+            $this->assertThat($val, $this->logicalNot($this->isTrue(is_string($sut->$val))));
         }
     }
 
@@ -137,8 +137,20 @@ final class HtmlSafeContextTest extends TestCase
         $obj->r2 = $res;
         fclose($res);
         $sut = new HtmlSafeContext($obj);
-        foreach ($sut as $val) {
-            $this->assertEmpty($val);
+        foreach ($obj as $val) {
+            $this->assertEmpty($sut->$val);
+        }
+    }
+
+    #[TestDox("Shall return null when property does not exist on inner object")]
+    public function test7()
+    {
+        $obj = new class() {
+            public $name = self::class;
+        };
+        $sut = new HtmlSafeContext($obj);
+        foreach (["non", "existing", "props"] as $val) {
+            $this->assertNull($sut->$val);
         }
     }
 }
