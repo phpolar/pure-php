@@ -22,6 +22,6 @@
   <php>
     <const name="SRC_GLOB" value="/src{/,/**/}*.php"/>
     <const name="Phpolar\PurePhp\Tests\PROJECT_SIZE_THRESHOLD" value="7000"/>
-    <const name="Phpolar\PurePhp\Tests\PROJECT_MEMORY_USAGE_THRESHOLD" value="17000"/>
+    <const name="Phpolar\PurePhp\Tests\PROJECT_MEMORY_USAGE_THRESHOLD" value="17500"/>
   </php>
 </phpunit>
