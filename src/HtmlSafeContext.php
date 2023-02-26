@@ -20,7 +20,7 @@ final class HtmlSafeContext
 
         $this->innerObject19 = clone $obj;
         foreach (get_object_vars($obj) as $propName => $value) {
-             $this->$propName = $this->convertVal($value);
+             $this->innerObject19->$propName = $this->convertVal($value);
         }
     }
 
@@ -42,6 +42,7 @@ final class HtmlSafeContext
      * @suppress PhanTypePossiblyInvalidCloneNotObject
      * @suppress PhanPartialTypeMismatchReturn
      * @suppress PhanTypeMismatchArgumentInternal
+     * @codeCoverageIgnore
      */
     private function convertProps(object &$obj): object
     {
@@ -50,8 +51,17 @@ final class HtmlSafeContext
         return $copy;
     }
 
+    public function __get(string $name): mixed
+    {
+        if (property_exists($this->innerObject19, $name)) {
+            return $this->innerObject19->$name;
+        }
+        return null;
+    }
+
     /**
      * @suppress PhanUnusedPublicFinalMethodParameter
+     * @codeCoverageIgnore
      */
     public function __call(mixed $methodName, mixed $args): mixed
     {
