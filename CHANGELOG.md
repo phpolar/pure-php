@@ -1,3 +1,13 @@
+## 1.0.1 (2023-02-25)
+
+### Fix
+
+- **HtmlSafeContext**: do not set props dynamically
+
+### Refactor
+
+- **Binder**: use provided closure instead of static bind method
+
 ## 1.0.0 (2023-02-22)
 
 ### BREAKING CHANGE
