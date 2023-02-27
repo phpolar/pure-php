@@ -18,5 +18,7 @@
 /README.md                  export-ignore
 /SECURITY.md                export-ignore
 /tests                      export-ignore
+/docs
+/.vscode
 
 *.php diff=php
