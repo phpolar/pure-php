@@ -22,6 +22,9 @@ final class HtmlSafeContext
         foreach (get_object_vars($obj) as $propName => $value) {
              $this->innerObject19->$propName = $this->convertVal($value);
         }
+        foreach ($this->innerObject19 as $propName => $propVal) {
+            $this->$propName = $propVal;
+        }
     }
 
     private function convertVal(mixed $val): mixed
