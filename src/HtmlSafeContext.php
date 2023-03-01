@@ -13,18 +13,23 @@ use Stringable;
  */
 final class HtmlSafeContext
 {
-    private object $innerObject19;
+    private object $client;
 
     public function __construct(object $obj)
     {
 
-        $this->innerObject19 = clone $obj;
+        $this->client = clone $obj;
         foreach (get_object_vars($obj) as $propName => $value) {
-             $this->innerObject19->$propName = $this->convertVal($value);
+             $this->client->$propName = $this->convertVal($value);
         }
-        foreach ($this->innerObject19 as $propName => $propVal) {
-            $this->$propName = $propVal;
-        }
+    }
+
+    /**
+     * Allow the binder to retrieve the inner object.
+     */
+    public function receive(Binder $binder): object
+    {
+        return $binder->getClient($this->client);
     }
 
     private function convertVal(mixed $val): mixed
@@ -52,29 +57,6 @@ final class HtmlSafeContext
         $copy = clone $obj;
         array_walk_recursive($copy, fn (&$val) => $val = $this->convertVal($val));
         return $copy;
-    }
-
-    public function __get(string $name): mixed
-    {
-        if (property_exists($this->innerObject19, $name)) {
-            return $this->innerObject19->$name;
-        }
-        return null;
-    }
-
-    /**
-     * @suppress PhanUnusedPublicFinalMethodParameter
-     * @codeCoverageIgnore
-     */
-    public function __call(mixed $methodName, mixed $args): mixed
-    {
-        if (
-            is_string($methodName) === true &&
-            method_exists($this->innerObject19, $methodName) === false
-        ) {
-            return false;
-        }
-        return $this->innerObject19->$methodName(...$args);
     }
 
     /**
