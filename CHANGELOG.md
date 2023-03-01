@@ -1,3 +1,9 @@
+## 1.0.3 (2023-02-28)
+
+### Fix
+
+- do not create dynamic properties
+
 ## 1.0.2 (2023-02-27)
 
 ### Fix
