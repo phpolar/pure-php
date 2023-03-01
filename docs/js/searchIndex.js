@@ -11,6 +11,11 @@ Search.appendIndex(
             "summary": "Streams\u0020content\u0020of\u0020template",
             "url": "classes/Phpolar-PurePhp-Binder.html#method_bind"
         },                {
+            "fqsen": "\\Phpolar\\PurePhp\\Binder\u003A\u003AgetClient\u0028\u0029",
+            "name": "getClient",
+            "summary": "Retrieve\u0020the\u0020client\u0020of\u0020the\u0020context.",
+            "url": "classes/Phpolar-PurePhp-Binder.html#method_getClient"
+        },                {
             "fqsen": "\\Phpolar\\PurePhp\\BindFailed",
             "name": "BindFailed",
             "summary": "Represents\u0020the\u0020scenario\u0020when\u0020binding\u0020a\u0020context\u0020to\u0020the\u0020templating\u0020strategy\u0020fails",
@@ -56,15 +61,10 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Phpolar-PurePhp-HtmlSafeContext.html#method___construct"
         },                {
-            "fqsen": "\\Phpolar\\PurePhp\\HtmlSafeContext\u003A\u003A__get\u0028\u0029",
-            "name": "__get",
-            "summary": "",
-            "url": "classes/Phpolar-PurePhp-HtmlSafeContext.html#method___get"
-        },                {
-            "fqsen": "\\Phpolar\\PurePhp\\HtmlSafeContext\u003A\u003A__call\u0028\u0029",
-            "name": "__call",
-            "summary": "",
-            "url": "classes/Phpolar-PurePhp-HtmlSafeContext.html#method___call"
+            "fqsen": "\\Phpolar\\PurePhp\\HtmlSafeContext\u003A\u003Areceive\u0028\u0029",
+            "name": "receive",
+            "summary": "Allow\u0020the\u0020binder\u0020to\u0020retrieve\u0020the\u0020inner\u0020object.",
+            "url": "classes/Phpolar-PurePhp-HtmlSafeContext.html#method_receive"
         },                {
             "fqsen": "\\Phpolar\\PurePhp\\HtmlSafeContext\u003A\u003A__invoke\u0028\u0029",
             "name": "__invoke",
