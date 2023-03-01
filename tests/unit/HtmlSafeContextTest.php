@@ -11,6 +11,7 @@ use PHPUnit\Framework\TestCase;
 use Stringable;
 
 #[CoversClass(HtmlSafeContext::class)]
+#[CoversClass(Binder::class)]
 #[UsesClass(HtmlSafeString::class)]
 final class HtmlSafeContextTest extends TestCase
 {
@@ -26,34 +27,38 @@ final class HtmlSafeContextTest extends TestCase
         }
     }
 
-    #[TestDox("Shall convert properties of type string to HtmlSafeString")]
-    public function tes1()
+    #[TestDox("Shall convert properties of type string to html safe string")]
+    public function test1()
     {
         $obj = new class() {
-            public string $str = "what";
+            public string $str = "<div>";
         };
         $sut = new HtmlSafeContext($obj);
-        $this->assertInstanceOf(HtmlSafeString::class, $sut->str);
+        $binder = new Binder();
+        $func = $binder->bind(fn () => $this->str, $sut);
+        $this->assertNotSame($obj->str, $func());
     }
 
-    #[TestDox("Shall convert Stringable properties to HtmlSafeString")]
-    public function tes2()
+    #[TestDox("Shall convert Stringable properties to html safe string")]
+    public function test2()
     {
         $strable = new class() implements Stringable {
             public function __toString(): string
             {
-                return "a string";
+                return "<div>";
             }
         };
         $obj = new class() {
-            public Stringable $strable;
+            public Stringable|string $strable;
         };
         $obj->strable = $strable;
         $sut = new HtmlSafeContext($obj);
-        $this->assertInstanceOf(HtmlSafeString::class, $sut->strable);
+        $binder = new Binder();
+        $func = $binder->bind(fn () => $this->strable, $sut);
+        $this->assertNotSame((string) $strable, $func());
     }
 
-    #[TestDox("Shall not convert non-string non-Stringable properties to HtmlSafeString")]
+    #[TestDox("Shall leave non-string non-Stringable properties alone")]
     public function test3()
     {
         $obj = new class() {
@@ -63,28 +68,32 @@ final class HtmlSafeContextTest extends TestCase
             public ?float $nope = null;
         };
         $sut = new HtmlSafeContext($obj);
-        foreach ($obj as $val) {
-            $this->assertThat($val, $this->logicalNot($this->isTrue(is_string($sut->$val))));
+        $binder = new Binder();
+        foreach ($obj as $propName => $val) {
+            $func = $binder->bind(fn () => $this->$propName, $sut);
+            $this->assertThat($val, $this->logicalNot($this->isTrue(is_string($func()))));
         }
     }
 
-    #[TestDox("Shall convert string and Stringable items in array properties to HtmlSafeString")]
+    #[TestDox("Shall convert string and Stringable items in array properties to html safe strings")]
     public function tes4()
     {
         $strable = new class() implements Stringable {
             public function __toString(): string
             {
-                return "a string";
+                return "<div>";
             }
         };
         $obj = new class() {
             public array $arr;
         };
-        $obj->arr = ["my str", $strable, ["another string", ["nested again"]]];
+        $obj->arr = ["<div>", $strable, ["<div>", ["<div>"]]];
         $sut = new HtmlSafeContext($obj);
+        $binder = new Binder();
+        $func = $binder->bind(fn () => $this->arr, $sut);
         array_walk_recursive(
-            $sut->arr,
-            fn ($val) => $this->assertInstanceOf(HtmlSafeString::class, $val),
+            $func(),
+            fn ($val) => $this->assertNotSame("<div>", $val),
         );
     }
 
@@ -106,8 +115,10 @@ final class HtmlSafeContextTest extends TestCase
             "prop3" => (object) ["a" => "another string", "b" => (object) ["z" => "nested again"]],
         ];
         $sut = new HtmlSafeContext($obj);
+        $binder = new Binder();
+        $func = $binder->bind(fn () => $this->obj, $sut);
         array_walk_recursive(
-            $sut->obj,
+            $func(),
             fn ($val) => $val instanceof \stdClass ? array_walk_recursive(
                     $val,
                     fn ($v) => $v instanceof \stdClass ? array_walk_recursive(
@@ -137,8 +148,10 @@ final class HtmlSafeContextTest extends TestCase
         $obj->r2 = $res;
         fclose($res);
         $sut = new HtmlSafeContext($obj);
-        foreach ($obj as $val) {
-            $this->assertEmpty($sut->$val);
+        $binder = new Binder();
+        foreach ($obj as $propName => $val) {
+            $func = $binder->bind(fn () => $this->$propName, $sut);
+            $this->assertEmpty($func());
         }
     }
 
@@ -149,8 +162,10 @@ final class HtmlSafeContextTest extends TestCase
             public $name = self::class;
         };
         $sut = new HtmlSafeContext($obj);
+        $binder = new Binder();
         foreach (["non", "existing", "props"] as $val) {
-            $this->assertNull($sut->$val);
+            $func = $binder->bind(fn () => $this->$val ?? null, $sut);
+            $this->assertNull($func());
         }
     }
 }
