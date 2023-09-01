@@ -15,9 +15,9 @@ final class TemplateEngine
         "html",
     ];
     public function __construct(
-        private TemplatingStrategyInterface $renderingAlgoFactory,
-        private Binder $binder,
-        private Dispatcher $dispatcher,
+        private TemplatingStrategyInterface $renderingAlgoFactory = new StreamContentStrategy(),
+        private Binder $binder = new Binder(),
+        private Dispatcher $dispatcher = new Dispatcher(),
     ) {
     }
 
