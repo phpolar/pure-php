@@ -9,6 +9,7 @@ use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
+use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\Attributes\UsesClass;
 use stdClass;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -17,6 +18,7 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(TemplateEngine::class)]
 #[UsesClass(HtmlSafeContext::class)]
 #[UsesClass(HtmlSafeString::class)]
+#[UsesClass(StreamContentStrategy::class)]
 final class TemplateEngineTest extends TestCase
 {
     const EXISTING_FILE = "tests/__templates__/a.php";
@@ -297,5 +299,14 @@ final class TemplateEngineTest extends TestCase
         chdir("tests/__templates__");
         $template->apply($basename, new HtmlSafeContext($obj));
         chdir($processDir);
+    }
+
+    #[TestDox("Shall return FileNotFound when given file does not exist")]
+    #[TestWith(["NON_EXISTING_FILE"])]
+    public function test8(string $nonExistingFile)
+    {
+        $template = new TemplateEngine();
+        $result = $template->apply($nonExistingFile);
+        $this->assertInstanceOf(FileNotFound::class, $result);
     }
 }
