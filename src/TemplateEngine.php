@@ -63,12 +63,12 @@ final class TemplateEngine
      */
     private function resolveBasename(string $givenPath): string|FileNotFound
     {
-        if (file_exists($givenPath)) {
+        if (file_exists($givenPath) === true) {
             return $givenPath;
         }
         foreach (self::ALLOWED_EXTENSIONS as $allowedExt) {
             $path = "src/templates/$givenPath.$allowedExt";
-            if (file_exists($path)) {
+            if (file_exists($path) === true) {
                 return $path;
             }
         }
