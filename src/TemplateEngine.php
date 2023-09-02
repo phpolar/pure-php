@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Phpolar\PurePhp;
 
+use Closure;
+
 /**
  * Provides support for pure and secure PHP templates
  */
@@ -14,11 +16,15 @@ final class TemplateEngine
         "phtml",
         "html",
     ];
+
+    private Closure $renderingAlgo;
+
     public function __construct(
-        private TemplatingStrategyInterface $renderingAlgoFactory = new StreamContentStrategy(),
+        TemplatingStrategyInterface $renderingAlgoFactory = new StreamContentStrategy(),
         private Binder $binder = new Binder(),
         private Dispatcher $dispatcher = new Dispatcher(),
     ) {
+        $this->renderingAlgo = $renderingAlgoFactory->getAlgorithm();
     }
 
     /**
@@ -26,16 +32,23 @@ final class TemplateEngine
      */
     public function apply(string $givenPath, ?HtmlSafeContext $context = null): string|FileNotFound|BindFailed
     {
-        $renderingAlgo = $this->renderingAlgoFactory->getAlgorithm();
-        $algo = $context === null ? $renderingAlgo : $this->binder->bind($renderingAlgo, $context);
-        if ($algo === false) {
+        $filename = $this->resolveBasename($givenPath);
+
+        if ($filename instanceof FileNotFound) {
+            return $filename; // file not found
+        }
+
+        if ($context === null) {
+            return $this->dispatcher->getContents($this->renderingAlgo, $filename);
+        }
+
+        $bound = $this->binder->bind($this->renderingAlgo, $context);
+
+        if ($bound === false) {
             return new BindFailed();
         }
-        $result = $this->resolveBasename($givenPath);
-        if ($result instanceof FileNotFound) {
-            return $result;
-        }
-        return $this->dispatcher->getContents($algo, $result);
+
+        return $this->dispatcher->getContents($bound, $filename);
     }
 
     /**
@@ -43,11 +56,12 @@ final class TemplateEngine
      */
     public function render(string $pathToTemplate, HtmlSafeContext $context): bool|FileNotFound|BindFailed
     {
-        $renderingAlgo = $this->renderingAlgoFactory->getAlgorithm();
-        $bound = $this->binder->bind($renderingAlgo, $context);
+        $bound = $this->binder->bind($this->renderingAlgo, $context);
+
         if ($bound === false) {
             return new BindFailed();
         }
+
         return $this->dispatcher->dispatch($bound, $pathToTemplate);
     }
 
@@ -72,6 +86,7 @@ final class TemplateEngine
                 return $path;
             }
         }
+        // @codeCoverageIgnore
         return new FileNotFound();
     }
 }

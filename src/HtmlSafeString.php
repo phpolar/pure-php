@@ -15,9 +15,7 @@ final class HtmlSafeString implements Stringable
 
     private const JS_DIRECTIVE = "javascript:";
 
-    private const FILTER_STRS = [
-        self::JS_DIRECTIVE,
-    ];
+    private const UTF_ENCODING = "UTF-8";
 
     public function __construct(private string $strVal)
     {
@@ -30,18 +28,9 @@ final class HtmlSafeString implements Stringable
     public function __toString(): string
     {
         return htmlentities(
-                array_reduce(
-                    self::FILTER_STRS,
-                    self::reduceFilterString(...),
-                    $this->strVal,
-                ),
-                ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
-                "UTF-8",
-            );
-    }
-
-    private static function reduceFilterString(string $prev, string $str): string
-    {
-        return $prev === self::EMPTY_STR ? self::EMPTY_STR : (string) str_ireplace($str, self::EMPTY_STR, $prev);
+            (string) str_ireplace(self::JS_DIRECTIVE, self::EMPTY_STR, $this->strVal),
+            ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
+            self::UTF_ENCODING,
+        );
     }
 }

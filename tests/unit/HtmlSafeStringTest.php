@@ -45,9 +45,16 @@ final class HtmlSafeStringTest extends TestCase
 
     #[TestDox("Shall not allow a uri that points to a file with a javascript file extension")]
     #[DataProvider("htmlEnts")]
-    public function test3(string $before, string $after)
+    public function tet3(string $before, string $after)
     {
         $sut = new HtmlSafeString($before);
         $this->assertSame($after, (string) $sut);
+    }
+
+    #[TestDox("Shall do nothing to empty string")]
+    public function test4()
+    {
+        $sut = new HtmlSafeString("");
+        $this->assertSame("", (string) $sut);
     }
 }

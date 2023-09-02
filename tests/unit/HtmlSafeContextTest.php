@@ -8,6 +8,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use Stringable;
 
 #[CoversClass(HtmlSafeContext::class)]
@@ -76,7 +77,7 @@ final class HtmlSafeContextTest extends TestCase
     }
 
     #[TestDox("Shall convert string and Stringable items in array properties to html safe strings")]
-    public function tes4()
+    public function test4()
     {
         $strable = new class() implements Stringable {
             public function __toString(): string
@@ -91,14 +92,15 @@ final class HtmlSafeContextTest extends TestCase
         $sut = new HtmlSafeContext($obj);
         $binder = new Binder();
         $func = $binder->bind(fn () => $this->arr, $sut);
+        $result = $func();
         array_walk_recursive(
-            $func(),
+            $result,
             fn ($val) => $this->assertNotSame("<div>", $val),
         );
     }
 
     #[TestDox("Shall convert string and Stringable properties in object properties to HtmlSafeString")]
-    public function tes5()
+    public function test5()
     {
         $strable = new class() implements Stringable {
             public function __toString(): string
@@ -117,15 +119,16 @@ final class HtmlSafeContextTest extends TestCase
         $sut = new HtmlSafeContext($obj);
         $binder = new Binder();
         $func = $binder->bind(fn () => $this->obj, $sut);
+        $result = $func();
         array_walk_recursive(
-            $func(),
+            $result,
             fn ($val) => $val instanceof \stdClass ? array_walk_recursive(
                     $val,
                     fn ($v) => $v instanceof \stdClass ? array_walk_recursive(
                             $v,
-                            fn ($vv) => $this->assertInstanceOf(HtmlSafeString::class, $vv)
-                        ) : $this->assertInstanceOf(HtmlSafeString::class, $v),
-                ) : $this->assertInstanceOf(HtmlSafeString::class, $val),
+                            fn ($vv) => $this->assertIsString(HtmlSafeString::class, $vv)
+                        ) : $this->assertIsString($v),
+                ) : $this->assertIsString($val),
         );
     }
 
@@ -167,5 +170,21 @@ final class HtmlSafeContextTest extends TestCase
             $func = $binder->bind(fn () => $this->$val ?? null, $sut);
             $this->assertNull($func());
         }
+    }
+
+    #[TestDox("Shall not be invokable")]
+    public function test8()
+    {
+        $sut = new HtmlSafeContext((object) "");
+        $this->expectException(RuntimeException::class);
+        $sut();
+    }
+
+    #[TestDox("Shall not be serializable")]
+    public function test9()
+    {
+        $sut = new HtmlSafeContext((object) "");
+        $this->expectException(RuntimeException::class);
+        serialize($sut);
     }
 }
