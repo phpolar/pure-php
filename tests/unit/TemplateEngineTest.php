@@ -303,10 +303,47 @@ final class TemplateEngineTest extends TestCase
 
     #[TestDox("Shall return FileNotFound when given file does not exist")]
     #[TestWith(["NON_EXISTING_FILE"])]
+    #[TestWith(["NON_EXISTING_FILE.phtml"])]
+    #[TestWith(["NON_EXISTING_FILE.php"])]
+    #[TestWith(["NON_EXISTING_FILE.html"])]
     public function test8(string $nonExistingFile)
     {
         $template = new TemplateEngine();
         $result = $template->apply($nonExistingFile);
         $this->assertInstanceOf(FileNotFound::class, $result);
+    }
+
+    #[TestDox("Shall not dispatch when binding fails")]
+    public function test9()
+    {
+        $obj = new stdClass();
+        $algo = fn (): bool|FileNotFound => true;
+        $algoFactory = new class($algo) implements TemplatingStrategyInterface {
+            public function __construct(private Closure $algo)
+            {
+
+            }
+            public function getAlgorithm(): Closure
+            {
+                return $this->algo;
+            }
+        };
+        /**
+         * @var MockObject&Binder
+         */
+        $binderSpy = $this->createMock(Binder::class);
+        /**
+         * @var MockObject&Dispatcher
+         */
+        $executorSpy = $this->createMock(Dispatcher::class);
+        $binderSpy->expects($this->once())->method("bind")->willReturn(false);
+        $executorSpy->expects($this->never())->method("dispatch");
+        $template = new TemplateEngine(
+            $algoFactory,
+            $binderSpy,
+            $executorSpy,
+        );
+        $result = $template->render(self::EXISTING_FILE, new HtmlSafeContext($obj));
+        $this->assertInstanceOf(BindFailed::class, $result);
     }
 }
