@@ -17,11 +17,11 @@ final class HtmlSafeContext
 
     public function __construct(object $obj)
     {
-
         $this->client = clone $obj;
         foreach (get_object_vars($obj) as $propName => $value) {
-             $this->client->$propName = $this->convertVal($value);
+            $this->client->$propName = $this->convertVal($value instanceof Stringable ? (string) $value : $value);
         }
+        // @codeCoverageIgnore
     }
 
     /**
@@ -38,10 +38,7 @@ final class HtmlSafeContext
             "string" => (string) new HtmlSafeString($val),
             "array" => array_map(self::convertVal(...), $val),
             "resource", "resource (closed)" => "",
-            "object" => match ($val instanceof Stringable) {
-                true => (string) new HtmlSafeString((string) $val),
-                false => $this->convertProps($val),
-            },
+            "object" => $this->convertProps($val),
             default => $val,
         };
     }
@@ -50,26 +47,19 @@ final class HtmlSafeContext
      * @suppress PhanTypePossiblyInvalidCloneNotObject
      * @suppress PhanPartialTypeMismatchReturn
      * @suppress PhanTypeMismatchArgumentInternal
-     * @codeCoverageIgnore
      */
     private function convertProps(object &$obj): object
     {
         $copy = clone $obj;
-        array_walk_recursive($copy, fn (&$val) => $val = $this->convertVal($val));
+        array_walk_recursive($copy, fn (&$val) => $val = $this->convertVal($val instanceof Stringable ? (string) $val : $val));
         return $copy;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function __invoke(): never
     {
         throw new RuntimeException("Non-invokable class.");
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function __serialize(): never
     {
         throw new RuntimeException("Non-serializable class.");

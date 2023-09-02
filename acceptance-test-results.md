@@ -1,8 +1,8 @@
 # Acceptance Test Report
 
 ## Memory Usage (Phpolar\PhpTemplating\MemoryUsage)
-- [x] Memory usage shall be below 17000 bytes
-- [x] Memory usage shall be below 17000 bytes
+- [x] Memory usage shall be below 14000 bytes
+- [x] Memory usage shall be below 14000 bytes
 
 ## Project Size (Phpolar\PhpTemplating\ProjectSize)
 - [x] Source code total size shall be below 7000 bytes
