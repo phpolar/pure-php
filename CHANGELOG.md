@@ -1,3 +1,13 @@
+## 2.0.0 (2023-09-01)
+
+### Feat
+
+- **TemplateEngine**: use default object constructor parameters
+
+### Refactor
+
+- simplify logic and improve code coverage
+
 ## 1.0.4 (2023-04-30)
 
 ### Fix
