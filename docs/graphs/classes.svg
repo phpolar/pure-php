@@ -18,7 +18,7 @@ link Phpolar\\PurePhp\\Binder to Phpolar\\PurePhp\\BindFailed--><!--MD5=[81b3ee6
 link Phpolar\\PurePhp\\BindFailed to Phpolar\\PurePhp\\Dispatcher--><!--MD5=[5202e2a627ba0b9250c5b063f5c9da83]
 link Phpolar\\PurePhp\\Binder to Phpolar\\PurePhp\\FileNotFound--><!--MD5=[20868b6483fceb60603ffafb485791e3]
 link Phpolar\\PurePhp\\FileNotFound to Phpolar\\PurePhp\\HtmlSafeContext--><!--MD5=[7735b4e431613f75c97ccb3e19a08f80]
-link Phpolar\\PurePhp\\HtmlSafeContext to Phpolar\\PurePhp\\TemplateEngine--><!--MD5=[3bc3605f38d289cc3ab49945d57f9bb8]
+link Phpolar\\PurePhp\\HtmlSafeContext to Phpolar\\PurePhp\\TemplateEngine--><!--MD5=[48ff805d4397e69628a09b945eb9392a]
 @startuml
    skinparam ArrowColor #516f42
    skinparam activityBorderColor #516f42
@@ -70,7 +70,7 @@ PlantUML version 1.2020.02(Sun Mar 01 04:22:07 CST 2020)
 (GPL source distribution)
 Java Runtime: OpenJDK Runtime Environment
 JVM: OpenJDK 64-Bit Server VM
-Java Version: 11.0.18+10-post-Ubuntu-0ubuntu122.04
+Java Version: 11.0.20.1+1-post-Ubuntu-0ubuntu122.04
 Operating System: Linux
 Default Encoding: UTF-8
 Language: en
