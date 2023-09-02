@@ -8,7 +8,7 @@ Templating that's just PHP.  That's it.  Seriously.
 
 Support using [pure PHP templates](#pure-php-templates) with automatic XSS mitigation.
 
-[![Coverage Status](https://coveralls.io/repos/github/phpolar/php-templating/badge.svg?branch=main)](https://coveralls.io/github/phpolar/php-templating?branch=main) [![Version](http://poser.pugx.org/phpolar/php-templating/version)](https://packagist.org/packages/phpolar/php-templating) [![PHP Version Require](http://poser.pugx.org/phpolar/php-templating/require/php)](https://packagist.org/packages/phpolar/php-templating) [![License](http://poser.pugx.org/phpolar/php-templating/license)](https://packagist.org/packages/phpolar/php-templating) [![Total Downloads](http://poser.pugx.org/phpolar/php-templating/downloads)](https://packagist.org/packages/phpolar/php-templating)
+[![Coverage Status](https://coveralls.io/repos/github/phpolar/pure-php/badge.svg?branch=main)](https://coveralls.io/github/phpolar/pure-php?branch=main) [![Version](http://poser.pugx.org/phpolar/pure-php/version)](https://packagist.org/packages/phpolar/pure-php) [![PHP Version Require](http://poser.pugx.org/phpolar/pure-php/require/php)](https://packagist.org/packages/phpolar/pure-php) [![License](http://poser.pugx.org/phpolar/pure-php/license)](https://packagist.org/packages/phpolar/pure-php) [![Total Downloads](http://poser.pugx.org/phpolar/pure-php/downloads)](https://packagist.org/packages/phpolar/pure-php)
 
 ## Table of Contents
 
@@ -105,6 +105,6 @@ class Page
 
 ```
 
-## [API Documentation](https://phpolar.github.io/php-templating/)
+## [API Documentation](https://phpolar.github.io/pure-php/)
 
-[Back to top](#php-templating)
+[Back to top](#pure-php)
