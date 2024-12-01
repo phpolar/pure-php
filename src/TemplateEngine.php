@@ -11,7 +11,7 @@ use Closure;
  */
 final class TemplateEngine
 {
-    private const ALLOWED_EXTENSIONS = [
+    private const array ALLOWED_EXTENSIONS = [
         "php",
         "phtml",
         "html",
@@ -21,8 +21,8 @@ final class TemplateEngine
 
     public function __construct(
         TemplatingStrategyInterface $renderingAlgoFactory = new StreamContentStrategy(),
-        private Binder $binder = new Binder(),
-        private Dispatcher $dispatcher = new Dispatcher(),
+        private readonly Binder $binder = new Binder(),
+        private readonly Dispatcher $dispatcher = new Dispatcher(),
     ) {
         $this->renderingAlgo = $renderingAlgoFactory->getAlgorithm();
     }
