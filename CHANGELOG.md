@@ -1,3 +1,17 @@
+## 3.0.0 (2024-12-01)
+
+### BREAKING CHANGE
+
+- This package will now require upgrading to PHP 8.3 or greater to work.
+
+### Feat
+
+- **composer**: require php 8.3 or greater
+
+### Fix
+
+- **composer**: upgrade dependencies
+
 ## 2.0.0 (2023-09-01)
 
 ### Feat
