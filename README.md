@@ -8,7 +8,7 @@ Templating that's just PHP.  That's it.  Seriously.
 
 Support using [pure PHP templates](#pure-php-templates) with automatic XSS mitigation.
 
-[![Coverage Status](https://coveralls.io/repos/github/phpolar/pure-php/badge.svg?branch=main)](https://coveralls.io/github/phpolar/pure-php?branch=main) [![Version](http://poser.pugx.org/phpolar/pure-php/version)](https://packagist.org/packages/phpolar/pure-php) [![PHP Version Require](http://poser.pugx.org/phpolar/pure-php/require/php)](https://packagist.org/packages/phpolar/pure-php) [![License](http://poser.pugx.org/phpolar/pure-php/license)](https://packagist.org/packages/phpolar/pure-php) [![Total Downloads](http://poser.pugx.org/phpolar/pure-php/downloads)](https://packagist.org/packages/phpolar/pure-php)
+[![Coverage Status](https://coveralls.io/repos/github/phpolar/pure-php/badge.svg?branch=main)](https://coveralls.io/github/phpolar/pure-php?branch=main) [![Version](https://poser.pugx.org/phpolar/pure-php/version)](https://packagist.org/packages/phpolar/pure-php) [![PHP Version Require](https://poser.pugx.org/phpolar/pure-php/require/php)](https://packagist.org/packages/phpolar/pure-php) [![Total Downloads](https://poser.pugx.org/phpolar/pure-php/downloads)](https://packagist.org/packages/phpolar/pure-php)
 
 ## Table of Contents
 
