@@ -1,11 +1,23 @@
-- match:
-    dependency_type: development
-    update_type: semver:minor # includes patch updates!
+name: Dependabot auto-merge
+on: pull_request
 
-- match:
-    dependency_type: production
-    update_type: security:minor # includes patch updates!
+permissions:
+  contents: write
+  pull-requests: write
 
-- match:
-    dependency_type: production
-    update_type: semver:patch
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'phpolar/pure-php'
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Enable auto-merge for Dependabot PRs
+        if: steps.metadata.outputs.update-type == 'version-update:semver-patch'
+        run: gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
