@@ -11,7 +11,7 @@ use Closure;
  */
 final class TemplateEngine
 {
-    private const array ALLOWED_EXTENSIONS = [
+    private const ALLOWED_EXTENSIONS = [
         "php",
         "phtml",
         "html",
