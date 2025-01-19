@@ -50,15 +50,11 @@ working directory.
 ### Pure PHP Templates
 
 ```php
-// template.php
-
-<!DOCTYPE html>
+// template.php or template.phtml
 <?php
-/**
- * @var Page $view
- */
-$view = $this;
+(function (Page $view) {
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <style>
@@ -85,6 +81,8 @@ $view = $this;
         </div>
     </body>
 </html>
+<?php
+})($this);
 ```
 ```php
 // Page.php
