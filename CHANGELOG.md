@@ -1,3 +1,10 @@
+## 3.0.1 (2025-01-19)
+
+### Fix
+
+- **composer**: allow php 8.1 or greater
+- **pr-quality.yml**: update php version
+
 ## 3.0.0 (2024-12-01)
 
 ### BREAKING CHANGE
