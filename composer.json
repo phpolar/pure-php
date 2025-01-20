@@ -57,7 +57,7 @@
             "Composer\\Config::disableProcessTimeout",
             "watch -n 30 -cx vendor/bin/phpunit --color=always --testsuite unit"
         ],
-        "semgrep": "semgrep --config auto -l php ./src",
+        "semgrep": "semgrep --config auto ./src",
         "smell": "composer exec \"phpmd ./src ansi design,codesize,naming\"",
         "test": "phpunit --color=always",
         "test:acceptance": "@test --configuration=phpunit.dev.xml --testsuite acceptance --testdox",
@@ -72,6 +72,6 @@
         ]
     },
     "require": {
-        "php": ">= 8.1"
+        "php": "^7.4 || ^8.0"
     }
 }
