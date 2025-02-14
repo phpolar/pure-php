@@ -8,7 +8,7 @@
 /.github                    export-ignore
 /.gitignore                 export-ignore
 /.phan                      export-ignore
-/phpcs.xml                  export-ignore
+/phpcs.*                    export-ignore
 /phpdoc.xml                 export-ignore
 /phpolar.svg                export-ignore
 /phpunit.xml                export-ignore
