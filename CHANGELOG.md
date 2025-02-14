@@ -1,3 +1,9 @@
+## 3.1.1 (2025-02-13)
+
+### Fix
+
+- remove configuration file from dist
+
 ## 3.1.0 (2025-01-20)
 
 ### Feat
