@@ -10,8 +10,8 @@ on:
 jobs:
   build:
     if: |
-      ! contains(github.event.pull_request.title, 'bump phpstan') ||
-      ! contains(github.event.pull_request.title, 'bump phpunit') ||
+      ! contains(github.event.pull_request.title, 'bump phpstan') &&
+      ! contains(github.event.pull_request.title, 'bump phpunit') &&
       ! contains(github.event.pull_request.title, 'bump squizlabs/php_codesniffer')
     runs-on: ubuntu-latest
 
