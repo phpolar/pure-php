@@ -47,7 +47,7 @@
         "ci:analyze": "composer exec \"@analyze\"",
         "ci:lint": "composer exec \"@lint\"",
         "ci:lint-fix": "composer exec \"@lint-fix\"",
-        "ci:test": "XDEBUG_MODE=coverage composer exec \"@test --do-not-cache-result --display-notices --configuration=phpunit.ci.xml --coverage-clover=build/logs/clover.xml\"",
+        "ci:test": "XDEBUG_MODE=coverage composer exec \"@test --configuration=phpunit.ci.xml --coverage-clover=build/logs/clover.xml\"",
         "ci:test-build": "composer exec \"@test --configuration=phpunit.ci.xml\"",
         "ci:generate-coverage-badge": "composer exec \"php-coveralls -v\"",
         "docs:generate": "composer exec \"docker run --rm -v \"$(pwd):/data\" \"phpdoc/phpdoc:3\" --setting graphs.enabled=true\"",
@@ -63,7 +63,7 @@
         "test:acceptance": "@test --configuration=phpunit.dev.xml --testsuite acceptance --testdox",
         "test:acceptance:report": "@test --configuration=phpunit.dev.xml --testsuite acceptance --testdox-text acceptance-test-results.md",
         "test:unit": "@test --configuration=phpunit.dev.xml --testsuite unit",
-        "test:coverage": "XDEBUG_MODE=coverage composer exec \"@test --configuration=phpunit.ci.xml --coverage-text --do-not-cache-result --display-notices --testsuite unit\"",
+        "test:coverage": "XDEBUG_MODE=coverage composer exec \"@test --configuration=phpunit.ci.xml --coverage-text --testsuite unit\"",
         "xdebug:on": [
             "TEMP_FILE=\"$(sed --follow-symlink -E 's/^;(zend_extension=xdebug)/\\1/' \"$(php-config --ini-dir)/20-xdebug.ini\")\"; echo \"$TEMP_FILE\" > \"$(php-config --ini-dir)/20-xdebug.ini\""
         ],
@@ -72,6 +72,6 @@
         ]
     },
     "require": {
-        "php": "^7.4 || ^8.0"
+        "php": ">=8.3"
     }
 }
