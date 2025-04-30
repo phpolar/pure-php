@@ -8,7 +8,7 @@ Templating that's just PHP.  That's it.  Seriously.
 
 Support using [pure PHP templates](#pure-php-templates) with automatic XSS mitigation.
 
-[![Coverage Status](https://coveralls.io/repos/github/phpolar/pure-php/badge.svg?branch=main)](https://coveralls.io/github/phpolar/pure-php?branch=main) [![Version](https://poser.pugx.org/phpolar/pure-php/version)](https://packagist.org/packages/phpolar/pure-php) [![PHP Version Require](https://poser.pugx.org/phpolar/pure-php/require/php)](https://packagist.org/packages/phpolar/pure-php) [![Total Downloads](https://poser.pugx.org/phpolar/pure-php/downloads)](https://packagist.org/packages/phpolar/pure-php) [![PHPMD](https://github.com/phpolar/pure-php/actions/workflows/phpmd.yml/badge.svg)](https://github.com/phpolar/pure-php/actions/workflows/phpmd.yml) [![PHP Build Latest and Nightly](https://github.com/phpolar/pure-php/actions/workflows/php-latest.yml/badge.svg)](https://github.com/phpolar/pure-php/actions/workflows/php-latest.yml)
+[![Coverage Status](https://coveralls.io/repos/github/phpolar/pure-php/badge.svg?branch=main)](https://coveralls.io/github/phpolar/pure-php?branch=main) [![Version](https://poser.pugx.org/phpolar/pure-php/version)](https://packagist.org/packages/phpolar/pure-php) [![PHP Version Require](https://poser.pugx.org/phpolar/pure-php/require/php)](https://packagist.org/packages/phpolar/pure-php) [![Total Downloads](https://poser.pugx.org/phpolar/pure-php/downloads)](https://packagist.org/packages/phpolar/pure-php) [![Weekly Check](https://github.com/phpolar/pure-php/actions/workflows/weekly.yml/badge.svg)](https://github.com/phpolar/pure-php/actions/workflows/weekly.yml)
 
 ## Table of Contents
 
@@ -24,6 +24,7 @@ composer require phpolar/pure-php
 ```
 
 ## Usage
+
 ```php
 $page = new Page();
 $safeContext = new HtmlSafeContext($page);
@@ -84,6 +85,7 @@ working directory.
 <?php
 })($this);
 ```
+
 ```php
 // Page.php
 
